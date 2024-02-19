@@ -1,9 +1,9 @@
 # Breanna Bisnott ECSE3038 Lab 3 Submission
 
 ### Two Truths & a Lie
-- smth
-- smth
-- smth
+- I've flown a plane
+- My 5K PB is 28:22
+- I love ackee
 
 The purpose of this code is for a lab assignment on building POST request handlers with FastAPI :D
 
