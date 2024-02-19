@@ -14,6 +14,8 @@ def get_tank_id(id: str):
     for i in range(len(tanks)):
         if tanks[i]["id"] == id:
             return(tanks[i])
+    
+    raise HTTPException(status_code=404, detail="Item not found")
 
 @app.post("/tank")
 async def post_tank(request: Request, response: Response):   
@@ -32,6 +34,10 @@ async def post_tank(request: Request, response: Response):
 @app.patch("/tank/{id}")
 async def patch_tank(id: str, request:Request, response: Response):
     patched_tank = await request.json()
+
+    for x in list(patched_tank.keys()):
+        if x == "id":
+            raise HTTPException(status_code=400, detail="Unable to edit ID")
 
     for i, tank in enumerate(tanks):
         if tank["id"] == id:
