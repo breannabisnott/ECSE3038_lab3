@@ -30,21 +30,24 @@ async def post_tank(request: Request, response: Response):
     return(tank)
 
 @app.patch("/tank/{id}")
-async def patch_tank(id: str, request:Request):
+async def patch_tank(id: str, request:Request, response: Response):
     patched_tank = await request.json()
 
     for i, tank in enumerate(tanks):
         if tank["id"] == id:
             tanks[i] = {**tank, **patched_tank}
-            return tank[i]
+            response.status_code = status.HTTP_200_OK
+            return tanks[i]
+        
+    raise HTTPException(status_code=404, detail="Item not found")
         
 @app.delete("/tank/{id}")
 def delete_tank(id: str, response: Response):
-    
+
     for i in range(len(tanks)):
         if tanks[i]["id"] == id:
             del tanks[i]
             response.status_code = status.HTTP_204_NO_CONTENT
-            break
-        else:
-            raise HTTPException(status_code=404, detail="Item not found")    
+            return()
+    
+    raise HTTPException(status_code=404, detail="Item not found")    
